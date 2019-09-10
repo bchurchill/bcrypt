@@ -124,7 +124,7 @@ password is very simple:
     >>> import bcrypt
     >>> password = b"super secret password"
     >>> # Hash a password for the first time, with a randomly-generated salt
-    >>> hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+    >>> hashed = bcrypt.hashpw(password)
     >>> # Check that an unhashed password matches one that has previously been
     >>> # hashed
     >>> if bcrypt.checkpw(password, hashed):
