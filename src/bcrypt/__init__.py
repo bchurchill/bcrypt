@@ -56,13 +56,17 @@ def gensalt(rounds=12, prefix=b"2b"):
     )
 
 
-def hashpw(password, salt):
+def hashpw(password, salt=None):
     if isinstance(password, six.text_type) or isinstance(salt, six.text_type):
         raise TypeError("Unicode-objects must be encoded before hashing")
 
     if b"\x00" in password:
         raise ValueError("password may not contain NUL bytes")
 
+    # generate a salt automatically if not provided
+    if not salt:
+        salt = gensalt()
+        
     # bcrypt originally suffered from a wraparound bug:
     # http://www.openwall.com/lists/oss-security/2012/01/02/4
     # This bug was corrected in the OpenBSD source by truncating inputs to 72
